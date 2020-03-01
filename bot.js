@@ -9,14 +9,8 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
     if (msg.content.startsWith('spy')) {
-      controller.receiveMessage(msg)
+      controller.receiveMessage(msg, bot)
     }
 });
 
 bot.login(auth.token);
-
-module.exports.nomeVariavel = {
-    active: false,
-    players: [],
-    location: ""
-};

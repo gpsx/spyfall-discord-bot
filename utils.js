@@ -7,6 +7,6 @@ module.exports = {
         return -1
     },
     randomize: (maxNumber) => {
-        return Math.random() * maxNumber
+        return Math.floor(Math.random() * maxNumber)
     }
 }

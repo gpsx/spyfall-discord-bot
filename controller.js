@@ -10,12 +10,12 @@ global.game = {
 }
 
 module.exports = {
-    receiveMessage: (msg) => {       
-        command = switchMessage(msg)
+    receiveMessage: (msg, bot) => {       
+        command = switchMessage(msg, bot)
     }
 }
 
-switchMessage = (msg) => {
+switchMessage = (msg, bot) => {
     msgSplit = msg.content.split(' ')
     text = msgSplit[1]
     switch (text) {
@@ -28,7 +28,7 @@ switchMessage = (msg) => {
         case 'cancel':
             return createGame.cancelGame(msg)
         case 'start':
-            return start.startGame()
+            return start.startGame(msg, bot)
         default:
             msg.reply("Comando não reconhecido!")
             break;

@@ -8,7 +8,6 @@ module.exports = {
                     name: msg.author.username,
                     id: msg.author.id
                 })
-                console.log(game)
                 msg.author.send("Agora você está dentro da espionagem, prepare-se para o jogo!")
             }
             else msg.author.send("Você já está dentro do jogo!")
