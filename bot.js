@@ -7,7 +7,9 @@ bot.on('ready', () => {
 });
 
 bot.on('message', msg => {
-    msg.reply('PAPA')
-})
+    if (msg.content.startsWith('spy')) {
+      //controller.receiveMessage(bot, msg)
+    }
+});
 
 bot.login(auth.token);
