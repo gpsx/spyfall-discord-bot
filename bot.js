@@ -8,7 +8,7 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
     if (msg.content.startsWith('spy')) {
-      //controller.receiveMessage(bot, msg)
+      //controller.receiveMessage(msg)
     }
 });
 
