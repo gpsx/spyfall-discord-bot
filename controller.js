@@ -1,6 +1,7 @@
 const createGame = require("./createGame")
 const roomActions = require("./roomActions")
 const start = require("./start")
+const Discord = require('discord.js');
 
 global.game = {
     active: false,
@@ -20,13 +21,13 @@ switchMessage = (msg, bot) => {
     text = msgSplit[1]
     switch (text) {
         case 'create':
-            return createGame.createGame(msg)
+            return createGame.createGame(msg, bot)
         case 'join':
-            return roomActions.join(msg)
+            return roomActions.join(msg, bot)
         case 'leave':
-            return roomActions.leave(msg)
+            return roomActions.leave(msg, bot)
         case 'cancel':
-            return createGame.cancelGame(msg)
+            return createGame.cancelGame(msg, bot)
         case 'start':
             return start.startGame(msg, bot)
         default:
