@@ -4,7 +4,9 @@ module.exports = {
             if(game.players[i].id == idPlayer) 
                 return i
         }
-
         return -1
+    },
+    randomize: (maxNumber) => {
+        return Math.random() * maxNumber
     }
 }

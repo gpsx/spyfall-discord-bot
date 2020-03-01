@@ -1,5 +1,6 @@
 const createGame = require("./createGame")
 const roomActions = require("./roomActions")
+const start = require("./start")
 
 global.game = {
     active: false,
@@ -26,6 +27,8 @@ switchMessage = (msg) => {
             return roomActions.leave(msg)
         case 'cancel':
             return createGame.cancelGame(msg)
+        case 'start':
+            return start.startGame()
         default:
             msg.reply("Comando não reconhecido!")
             break;
