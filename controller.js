@@ -18,6 +18,8 @@ switchMessage = (msg) => {
     switch (text) {
         case 'create':
             return createGame.createGame(msg)
+        case 'cancel':
+            return createGame.cancelGame(msg)
         default:
             msg.reply("Comando não reconhecido!")
             break;
