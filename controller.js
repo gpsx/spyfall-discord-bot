@@ -24,6 +24,8 @@ switchMessage = (msg) => {
             return roomActions.join(msg)
         case 'leave':
             return roomActions.leave(msg)
+        case 'cancel':
+            return createGame.cancelGame(msg)
         default:
             msg.reply("Comando não reconhecido!")
             break;
