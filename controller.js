@@ -1,4 +1,6 @@
 const createGame = require("./createGame")
+const roomActions = require("./roomActions")
+
 global.game = {
     active: false,
     players: [],
@@ -18,6 +20,10 @@ switchMessage = (msg) => {
     switch (text) {
         case 'create':
             return createGame.createGame(msg)
+        case 'join':
+            return roomActions.join(msg)
+        case 'leave':
+            return roomActions.leave(msg)
         default:
             msg.reply("Comando não reconhecido!")
             break;
