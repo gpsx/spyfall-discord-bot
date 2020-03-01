@@ -5,7 +5,6 @@ module.exports = {
 }
 
 switchMessage = (msg) => {
-    defineChannel(msg)
     msgSplit = msg.content.split(' ')
     text = msgSplit[1]
     switch (text) {
