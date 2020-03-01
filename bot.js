@@ -14,3 +14,9 @@ bot.on('message', msg => {
 });
 
 bot.login(auth.token);
+
+module.exports.nomeVariavel = {
+    active: false,
+    players: [],
+    location: ""
+};
