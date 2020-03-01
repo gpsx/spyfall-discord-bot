@@ -1,0 +1,20 @@
+{
+    "locations":[
+        {
+            "name": "Aquario",
+            "roles": ["Peixe", "Tubarao", "Humano"]
+        },
+        {
+            "name": "Cidade",
+            "roles": ["Peixe", "Tubarao", "Humano"]
+        },
+        {
+            "name": "Escola",
+            "roles": ["Peixe", "Tubarao", "Humano"]
+        },
+        {
+            "name": "Coração",
+            "roles": ["Peixe", "Tubarao", "Humano"]
+        }
+    ]
+}
