@@ -3,6 +3,7 @@ const roomActions = require("./roomActions")
 const start = require("./start")
 const locationsInfo = require("./locationsInfo")
 const voting = require("./voting")
+const help = require("./help")
 const Discord = require('discord.js');
 
 global.game = {
@@ -37,8 +38,10 @@ switchMessage = (msg, bot) => {
             return locationsInfo.showLocations(msg, bot)
         case 'vote':
             return voting.voting(msg, bot)
+        case 'help':
+            return help.help(msg,bot)
         default:
-            msg.reply("Comando não reconhecido!")
+            msg.reply("Comando não reconhecido! Digite spy help para verificar os comandos")
             break;
     }
 }
