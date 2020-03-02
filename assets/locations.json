@@ -1,24 +1,184 @@
 {
     "locations":[
         {
-            "name": "Aquario",
-            "roles": ["Peixe", "Tubarao", "Humano"]
+            "name": "Avião",
+            "roles": ["Passageiro","Co-Piloto","Piloto","Aeromoça","Assento","Porta de Emergência"]
         },
         {
-            "name": "Cidade",
-            "roles": ["Peixe", "Tubarao", "Humano"]
+            "name": "Banco",
+            "roles": ["Caixa Eletrônico","Cofre","Segurança","Ladrão","Atendente","Idosa sacando dinheiro"]
         },
         {
             "name": "Escola",
-            "roles": ["Peixe", "Tubarao", "Humano"]
+            "roles": ["Professor","Aluno","Diretor","Zelador","Inspetora","Secretária"]
         },
         {
-            "name": "Coração",
-            "roles": ["Peixe", "Tubarao", "Humano"]
+            "name": "Praia",
+            "roles": ["Carangueijo","Salva-vidas","Banhista","Surfista","Quiosque","Ladrão"]
         },
         {
-            "name": "Coração",
-            "roles": ["Peixe", "Tubarao", "Humano"]
+            "name": "Cassino",
+            "roles": ["Croupiê","Olheiro","Segurança","Apostador","Turista","Caça-Níquel"]
+        },
+        {
+            "name": "Catedral",
+            "roles": ["Religioso","Padre","Turista","Hostea"]
+        },
+        {
+            "name": "Circo",
+            "roles": ["Elefante","Palhaço","Apresentador","Acrobata","Equilibrista","Malabarista"]
+        },
+        {
+            "name": "Festa Corporativa",
+            "roles": ["Chefe da Corporação","Bartender","Funcionário","DJ","Garçom"]
+        },
+        {
+            "name": "Cruzeiro",
+            "roles": ["Capitão","Músico","Marinheiro","Turista","Bóia","Cozinheiro"]
+        },
+        {
+            "name": "Spa",
+            "roles": ["Massagista","Instrutor de Yoga","Cozinheira","Nutricionista","Cliente","Manicure","Depiladora"]
+        },
+        {
+            "name": "Embaixada Internacional",
+            "roles": ["Estrangeiro","Orador","Tradutor","Jornalista","Segurança","Assesor de imprensa","Microfone"]
+        },
+        {
+            "name": "Hospital",
+            "roles": ["Médico","Enfermeiro","Doente","Socorrista","Paramédico","Ambulância"]
+        },
+        {
+            "name": "Hotel",
+            "roles": ["Recepcionista","Hóspede","Quarto","Atendente de Quarto","Faxineiro","Camareira"]
+        },
+        {
+            "name": "Base Militar",
+            "roles": ["Soldadinho","Recruta","Fuzil","Coronel","Boneco de treino","Vigia"]
+        },
+        {
+            "name": "Estúdio de Cinema",
+            "roles": ["Diretor","Maquiador","Ator","Roteirista","Camêra","Dublê"]
+        },
+        {
+            "name": "Trem",
+            "roles": ["Passageiro","Maquinista","Ferramentista","Vendedor ambulante","Voz dos avisos"]
+        },
+        {
+            "name": "Navio Pirata",
+            "roles": ["Pirata","Timoneiro","Capitão","Âncora","Vigia","Prisioneiro"]
+        },
+        {
+            "name": "Base Polar",
+            "roles": ["Engenheiro","Biólogo","Pinguim","Astrônomo","Metereologista","Yeti"]
+        },
+        {
+            "name": "Delegacia",
+            "roles": ["Policial","Delegado","Rosquinha","Prisioneiro","Carcereiro","Guarda","Advogado"]
+        },
+        {
+            "name": "Restaurante",
+            "roles": ["Cliente","Cozinheiro","Chef de Cozinha","Faxineiro","Garçom","Comida","Caixa"]
+        },
+        {
+            "name": "Buteco de esquina",
+            "roles": ["Bêbado","Sóbrio","Dono do bar","Cerveja","Ovo de codorna em conserva","Cozinheira"]
+        },
+        {
+            "name": "Estação Espacial",
+            "roles": ["Astronauta Russo","Astronauta Brasileiro","Alien","Controlador de Rádio","Físico","Engenheiro"]
+        },
+        {
+            "name": "Submarino",
+            "roles": ["Capitão","Tripulante","Piloto","Operador de rádio","Operador de Sonar","Cozinheiro"]
+        },
+        {
+            "name": "Supermercado",
+            "roles": ["Caixa","Cliente","Carrinho","Comida","Faxineiro","Gerente","Estoquista"]
+        },
+        {
+            "name": "Universidade",
+            "roles": ["Professor","Veterano","Reitor","Faxineiro","Bixo","Guarda"]
+        },
+        {
+            "name": "Parque",
+            "roles": ["Guarda","Visitante","Técnico de Manutenção","Árvore","Pipoqueiro"]
+        },
+        {
+            "name": "Museu de Arte",
+            "roles": ["Guia","Visitante","Pintura","Segurança","Estudante","Escultura"]
+        },
+        {
+            "name": "Fábrica de Cachaça",
+            "roles": ["Cachaça","Gerente","Supervisor","Engenheiro de produção","Faxineiro","Visitante"]
+        },
+        {
+            "name": "Cemitério",
+            "roles": ["Coveiro","Visitante","Morto","Túmulo","Arrumador de morto","Fantasma"]
+        },
+        {
+            "name": "Construção Grande",
+            "roles": ["Obreiro","Pedreiro","Arquiteto","Engenheiro Cívil","Servente de Pedreiro","Operador de Máquina","Guindaste"]
+        },
+        {
+            "name": "Evento de Games",
+            "roles": ["Pro-Player","Entusiastas","Empresa de Jogos","Streamer","Cosplayer","Apresentador","Visitante"]
+        },
+        {
+            "name": "Posto de Gasolina",
+            "roles": ["Frentista","Borracheiro","Mecânico","Gerente","Caixa","Bomba de Gasolina"]
+        },
+        {
+            "name": "Cadeia",
+            "roles": ["Carcereiro","Prisioneiro","Vigia","Atirador","Segurança","Delegado","Membro de Facção"]
+        },
+        {
+            "name": "Baile Funk",
+            "roles": ["Funkeiro","Cria","MC","Polícia","Vendedor de Lança","Guarda-Chuva"]
+        },
+        {
+            "name": "Livraria",
+            "roles": ["Leitores","Bibliotecária","Atendente","Autor dos livros","Faxineiro"]
+        },
+        {
+            "name": "Puteiro",
+            "roles": ["Cafetão","Segurança","Prostituta","Cliente","Bartender"]
+        },
+        {
+            "name": "Ponto de Ônibus",
+            "roles": ["Funcionário da SPTRANS","Passageiro","Perdeu o ônibus","Paciente","Mendigo","Pomba"]
+        },
+        {
+            "name": "Estádio de Futebol",
+            "roles": ["Torcedor","Torcida organizada","Vendedor","Jogador","Juíz","Gândula"]
+        },
+        {
+            "name": "Casamento",
+            "roles": ["Noiva","Noivo","Convidado","Madrinha","Padrinho","Orador","Organizador de eventos"]
+        },
+        {
+            "name": "Jardim",
+            "roles": ["Cortador de Grama","Paisagista","Inseto","Florista","Turista"]
+        },
+        {
+            "name": "Zoológico",
+            "roles": ["Veterinário","Leão","Guia","Visitante","Faxineiro","Biólogo"]
+        },
+        {
+            "name": "Observatório",
+            "roles": ["Astrônomo","Físico","Faxineiro","Ferramentista","Turista"]
+        },
+        {
+            "name": "Show de Música",
+            "roles": ["Músico","Segurança","Fã","Técnico de Iluminação","Técnino de Áudio","Microfone"]
+        },
+        {
+            "name": "Engarrafamento",
+            "roles": ["Entregador de panfleto","Motoqueiro chutando retrovisor","Motorista no celular","Pedestre","Caminhoneiro","Limpador de para-brisas"]
+        },
+        {
+            "name": "Condomínio",
+            "roles": ["Porteiro","Síndico","Zelador","Morador","Vizinho barulhento","Jardineiro"]
         }
     ]
 }
