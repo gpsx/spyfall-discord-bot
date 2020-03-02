@@ -1,13 +1,16 @@
 const createGame = require("./createGame")
 const roomActions = require("./roomActions")
 const start = require("./start")
+const locationsInfo = require("./locationsInfo")
+const voting = require("./voting")
 const Discord = require('discord.js');
 
 global.game = {
     active: false,
     players: [],
     location: "",
-    creator: ""
+    creator: "",
+    votes: 0
 }
 
 module.exports = {
@@ -30,6 +33,10 @@ switchMessage = (msg, bot) => {
             return createGame.cancelGame(msg, bot)
         case 'start':
             return start.startGame(msg, bot)
+        case 'locations':
+            return locationsInfo.showLocations(msg, bot)
+        case 'vote':
+            return voting.voting(msg, bot)
         default:
             msg.reply("Comando não reconhecido!")
             break;

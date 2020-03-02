@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const auth = require('./auth.json');
+const auth = require('./assets/auth.json');
 const controller = require('./controller')
 
 bot.on('ready', () => {
