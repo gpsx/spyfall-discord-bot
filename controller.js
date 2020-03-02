@@ -3,6 +3,7 @@ const roomActions = require("./roomActions")
 const start = require("./start")
 const locationsInfo = require("./locationsInfo")
 const voting = require("./voting")
+const help = require("./help")
 const Discord = require('discord.js');
 
 global.game = {
@@ -10,7 +11,8 @@ global.game = {
     players: [],
     location: "",
     creator: "",
-    votes: 0
+    votes: 0,
+    tied: []
 }
 
 module.exports = {
@@ -36,9 +38,14 @@ switchMessage = (msg, bot) => {
         case 'locations':
             return locationsInfo.showLocations(msg, bot)
         case 'vote':
+            if(game.tied.length > 1){
+                return voting.votingTied(msg, bot)    
+            }
             return voting.voting(msg, bot)
+        case 'help':
+            return help.help(msg,bot)
         default:
-            msg.reply("Comando não reconhecido!")
+            msg.reply("Comando não reconhecido! Digite spy help para verificar os comandos")
             break;
     }
 }

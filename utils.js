@@ -21,5 +21,25 @@ module.exports = {
         .setThumbnail(embedInfo.thumb)
 
         return embed
-    } 
+    } ,
+    resetVotes: () => {
+        game.players.forEach(player => {
+            player.votes = 0;
+            delete player.voted
+        })
+        game.votes = 0
+    },
+    resetGameTied: () =>{
+        game.tied = []
+    },
+    deactivateGame: () =>{
+        global.game = {
+            active: false,
+            players: [],
+            location: "",
+            creator: "",
+            votes: 0,
+            tied: []
+          }
+    }
 }

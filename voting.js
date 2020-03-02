@@ -1,52 +1,118 @@
 const utils = require('./utils.js')
 
+function processVote(msgOwnerIndex, playerVotedIndex) {
+    if (playerVotedIndex != -1) {
+        if (game.players[playerVotedIndex].votes) {
+            game.players[playerVotedIndex].votes += 1;
+        } else {
+            game.players[playerVotedIndex].votes = 1;
+        }
+        game.players[msgOwnerIndex].voted = playerVotedIndex
+        game.votes += 1
+    } else {
+        msg.reply("Esta pessoa não está jogando")
+    }
+}
+
+function isTied(msg, mostVotedPlayer, mostVotedPlayerIndex) {
+    if (mostVotedPlayerIndex.length > 1) {
+        game.tied = mostVotedPlayer
+        msg.channel.send("Voto empatado entre: ")
+        game.tied.forEach(player => {
+            msg.channel.send(`<@${player.id}>`)
+        })
+        msg.channel.send("Rodada de votos novamente. Somente pode votar nestes players")
+        utils.resetVotes();
+    } else {
+        announceWhoIsTheVoted(msg, mostVotedPlayer[0], mostVotedPlayerIndex[0])
+    }
+}
+
+function searchMostVotedPlayers(msg) {
+    var mostVotedPlayer = [];
+    var mostVotedPlayerIndex = [];
+    game.players.forEach((player, index) => {
+        if (!player.votes) {
+            player.votes = 0;
+        }
+        if (mostVotedPlayer.length == 0 || player.votes > mostVotedPlayer[0].votes) {
+            mostVotedPlayer = []
+            mostVotedPlayerIndex = []
+            mostVotedPlayer.push(player);
+            mostVotedPlayerIndex.push(index);
+        }
+        else if (player.votes == mostVotedPlayer[0].votes) {
+            mostVotedPlayer.push(player);
+            mostVotedPlayerIndex.push(index);
+        }
+    })
+    return isTied(msg, mostVotedPlayer, mostVotedPlayerIndex)
+}
+
+function finishVoteSession(msg) {
+    if(game.tied.length > 1){
+        utils.resetGameTied
+    }
+    msg.channel.send("Acabou a rodada dos votos")
+    searchMostVotedPlayers(msg)
+
+}
+
+function announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex) {
+    msg.channel.send(`Jogador mais votado foi: <@${playerVoted.id}>`)
+    game.players.splice(playerVotedIndex, 1)
+    if (playerVoted.roles == "Spy") {
+        msg.channel.send('O SPY foi descoberto, escolha o lugar com ```spy location <lugar>```')
+    } else {
+        msg.channel.send("O Spy continua no jogo")
+        checkSpyIsTheLastOne(msg)
+    }
+    utils.resetVotes();
+    utils.resetGameTied();
+}
+
+function checkSpyIsTheLastOne(msg){
+    if(game.players.length == 1){
+        msg.channel.send(`<@${game.players[0].id}> Ganhou o Jogo como SPY`)
+        utils.deactivateGame()
+    }
+}
+
 module.exports = {
     voteInfo: (msg, bot) => {
         var embed = utils.embed({
-            msg, title:'Votos', thumb: 'https://cdn.discordapp.com/attachments/368818652109078532/683790044016017549/topsecret.png'
+            msg, title: 'Votos', thumb: 'https://cdn.discordapp.com/attachments/368818652109078532/683790044016017549/topsecret.png'
         }, bot)
         embed.setDescription('Para realizar o voto, utilize: ```spy vote @<Nome de usuário>```')
-        msg.reply(embed);
+        msg.channel.send(embed);
     },
-    voting: (msg, bot) =>{ 
-        ownerIndex = utils.searchPlayerIndex(msg.author.id)
-        if(game.players[ownerIndex].voted){
+    voting: (msg, bot) => {
+        msgOwnerIndex = utils.searchPlayerIndex(msg.author.id)
+        if (msgOwnerIndex == -1) {
+            msg.reply("Você não está nesse jogo")
+            return
+        }
+        if (game.players[msgOwnerIndex].voted) {
             msg.reply("Você só pode votar uma vez!")
             return;
         }
-        var playerIndex = utils.searchPlayerIndex(msg.mentions.users.first().id);
-        if(playerIndex != -1){
-            if(game.players[playerIndex].votes){
-                game.players[playerIndex].votes += 1;
-            }else{
-                game.players[playerIndex].votes = 1;
-            }
-            game.players[ownerIndex].voted = playerIndex
-            game.votes += 1 
+        var playerVotedIndex = utils.searchPlayerIndex(msg.mentions.users.first().id);
+        processVote(msgOwnerIndex, playerVotedIndex)
+        if (game.votes == game.players.length) {
+            finishVoteSession(msg)
         }
-        if(game.votes == game.players.length){
-            msg.reply("acabou os votos")
-            var playerVoted = game.players[0];
-            var playerVotedIndex = 0;
-            if(!playerVoted.votes){
-                playerVoted.votes = 0;
+        //msg.channel.send("Vota certo MEU!")
+
+    },
+    votingTied: (msg, bot) => {
+        playerFound = false;
+        game.tied.forEach(tiedPlayer => {
+            if (msg.mentions.users.first().id == tiedPlayer.id) {
+                playerFound = true
+                return module.exports.voting(msg, bot)
             }
-            for(player in game.players){
-                if(!game.players[player].votes){
-                    game.players[player].votes = 0;
-                    playerVotedIndex = player;
-                }
-                if(game.players[player].votes > playerVoted.votes){
-                    playerVoted = game.players[player];
-                }
-            }
-            msg.reply(`Jogador mais votado foi: <@${playerVoted.id}>`)
-            game.players.splice(playerVotedIndex, 1)
-            if(playerVoted.roles == "Spy"){
-                msg.reply('O SPY foi descoberto, escolha o lugar com ```spy location <lugar>```')
-            }else{
-                msg.reply("O Spy continua no jogo")
-            }
-        }
+        })
+        if(!playerFound)
+            msg.reply("Somente os players que estão empatados")
     }
 }
