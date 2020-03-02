@@ -41,7 +41,7 @@
             "roles": ["Massagista","Instrutor de Yoga","Cozinheira","Nutricionista","Cliente","Manicure","Depiladora"]
         },
         {
-            "name": "Embaixada Internacional",
+            "name": "Embaixada",
             "roles": ["Estrangeiro","Orador","Tradutor","Jornalista","Segurança","Assesor de imprensa","Microfone"]
         },
         {
@@ -179,6 +179,18 @@
         {
             "name": "Condomínio",
             "roles": ["Porteiro","Síndico","Zelador","Morador","Vizinho barulhento","Jardineiro"]
+        },
+        {
+            "name": "Castelo",
+            "roles": ["Rei","Rainha","Súditos","Bobo da corte","Príncipe","Princesa","Cavaleiro","Bardo"]
+        },
+        {
+            "name": "Fazenda",
+            "roles": ["Carpinador","Proprietário","Vaca","Espantalho","Veterinário","Agrônomo"]
+        },
+        {
+            "name": "Hipódromo",
+            "roles": ["Cavalo","Apostador","Atleta","Cuidador","Narrador","Segurança","Pipoqueiro"]
         }
     ]
 }
