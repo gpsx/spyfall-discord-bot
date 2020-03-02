@@ -11,7 +11,8 @@ global.game = {
     players: [],
     location: "",
     creator: "",
-    votes: 0
+    votes: 0,
+    tied: []
 }
 
 module.exports = {
@@ -37,6 +38,9 @@ switchMessage = (msg, bot) => {
         case 'locations':
             return locationsInfo.showLocations(msg, bot)
         case 'vote':
+            if(game.tied.length > 1){
+                return voting.votingTied(msg, bot)    
+            }
             return voting.voting(msg, bot)
         case 'help':
             return help.help(msg,bot)

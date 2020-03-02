@@ -14,29 +14,67 @@ function processVote(msgOwnerIndex, playerVotedIndex) {
     }
 }
 
-function finishVoteSession(msg) {
-    msg.channel.send("Acabou a rodada dos votos")
-    var playerVoted;
-    var playerVotedIndex;
-    game.players.forEach((player, index) => {
-        if(!player.votes){
-            player.votes = 0;
-        }
-        if(!playerVoted || player.votes > playerVoted.votes){
-            playerVoted = player;
-            playerVotedIndex = index;
-        }
-    })
-    announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex)
+function isTied(msg, mostVotedPlayer, mostVotedPlayerIndex) {
+    if (mostVotedPlayerIndex.length > 1) {
+        game.tied = mostVotedPlayer
+        msg.channel.send("Voto empatado entre: ")
+        game.tied.forEach(player => {
+            msg.channel.send(`<@${player.id}>`)
+        })
+        msg.channel.send("Rodada de votos novamente. Somente pode votar nestes players")
+        utils.resetVotes();
+    } else {
+        announceWhoIsTheVoted(msg, mostVotedPlayer[0], mostVotedPlayerIndex[0])
+    }
 }
 
-function announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex){
+function searchMostVotedPlayers(msg) {
+    var mostVotedPlayer = [];
+    var mostVotedPlayerIndex = [];
+    game.players.forEach((player, index) => {
+        if (!player.votes) {
+            player.votes = 0;
+        }
+        if (mostVotedPlayer.length == 0 || player.votes > mostVotedPlayer[0].votes) {
+            mostVotedPlayer = []
+            mostVotedPlayerIndex = []
+            mostVotedPlayer.push(player);
+            mostVotedPlayerIndex.push(index);
+        }
+        else if (player.votes == mostVotedPlayer[0].votes) {
+            mostVotedPlayer.push(player);
+            mostVotedPlayerIndex.push(index);
+        }
+    })
+    return isTied(msg, mostVotedPlayer, mostVotedPlayerIndex)
+}
+
+function finishVoteSession(msg) {
+    if(game.tied.length > 1){
+        utils.resetGameTied
+    }
+    msg.channel.send("Acabou a rodada dos votos")
+    searchMostVotedPlayers(msg)
+
+}
+
+function announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex) {
     msg.channel.send(`Jogador mais votado foi: <@${playerVoted.id}>`)
     game.players.splice(playerVotedIndex, 1)
     if (playerVoted.roles == "Spy") {
         msg.channel.send('O SPY foi descoberto, escolha o lugar com ```spy location <lugar>```')
     } else {
         msg.channel.send("O Spy continua no jogo")
+        checkSpyIsTheLastOne(msg)
+    }
+    utils.resetVotes();
+    utils.resetGameTied();
+}
+
+function checkSpyIsTheLastOne(msg){
+    if(game.players.length == 1){
+        msg.channel.send(`<@${game.players[0].id}> Ganhou o Jogo como SPY`)
+        utils.deactivateGame()
     }
 }
 
@@ -50,18 +88,31 @@ module.exports = {
     },
     voting: (msg, bot) => {
         msgOwnerIndex = utils.searchPlayerIndex(msg.author.id)
+        if (msgOwnerIndex == -1) {
+            msg.reply("Você não está nesse jogo")
+            return
+        }
         if (game.players[msgOwnerIndex].voted) {
             msg.reply("Você só pode votar uma vez!")
             return;
         }
-        try{
-            var playerVotedIndex = utils.searchPlayerIndex(msg.mentions.users.first().id);
-            processVote(msgOwnerIndex, playerVotedIndex)
-            if (game.votes == game.players.length) {
-                finishVoteSession(msg)
-            }
-        }catch{
-            msg.channel.send("Vota certo MEU!")
+        var playerVotedIndex = utils.searchPlayerIndex(msg.mentions.users.first().id);
+        processVote(msgOwnerIndex, playerVotedIndex)
+        if (game.votes == game.players.length) {
+            finishVoteSession(msg)
         }
+        //msg.channel.send("Vota certo MEU!")
+
+    },
+    votingTied: (msg, bot) => {
+        playerFound = false;
+        game.tied.forEach(tiedPlayer => {
+            if (msg.mentions.users.first().id == tiedPlayer.id) {
+                playerFound = true
+                return module.exports.voting(msg, bot)
+            }
+        })
+        if(!playerFound)
+            msg.reply("Somente os players que estão empatados")
     }
 }

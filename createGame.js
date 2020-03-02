@@ -23,13 +23,7 @@ module.exports = {
   cancelGame: (msg, bot) => {
     if (game.active) {
       if (msg.author.id == game.creator) {
-        global.game = {
-            active: false,
-            players: [],
-            location: "",
-            creator: "",
-            votes: 0
-        }
+        utils.deactivateGame()
 
         var embed = utils.embed(
           {
