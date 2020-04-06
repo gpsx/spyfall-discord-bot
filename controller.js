@@ -4,6 +4,7 @@ const start = require("./start")
 const locationsInfo = require("./locationsInfo")
 const voting = require("./voting")
 const help = require("./help")
+const locationVote = require("./locationVote.js")
 const Discord = require('discord.js');
 
 global.game = {
@@ -37,6 +38,8 @@ switchMessage = (msg, bot) => {
             return start.startGame(msg, bot)
         case 'locations':
             return locationsInfo.showLocations(msg, bot)
+        case 'location':
+            return locationVote.spyVote(msg, bot)
         case 'vote':
             if(game.tied.length > 1){
                 return voting.votingTied(msg, bot)    
