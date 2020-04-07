@@ -3,7 +3,7 @@ const utils = require("./utils");
 module.exports = {
   createGame: (msg, bot) => {
     if (!game.active) {
-      (game.active = true), (game.creator = msg.author.id);
+      (game.active = true), (game.creator = msg.author.id), (game.status = "Prepare");
 
       var embed = utils.embed(
         {
@@ -15,8 +15,9 @@ module.exports = {
         },
         bot
       );
-
+       
       msg.channel.send(embed);
+
     } else msg.reply("Já há um jogo em andamento, se acalme!");
   },
 

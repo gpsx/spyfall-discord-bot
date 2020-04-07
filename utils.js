@@ -39,6 +39,8 @@ module.exports = {
             location: "",
             creator: "",
             votes: 0,
+            declarion: "",
+            status: "",
             tied: []
           }
     }

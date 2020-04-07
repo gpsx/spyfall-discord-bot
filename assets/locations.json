@@ -145,14 +145,6 @@
             "roles": ["Cafetão","Segurança","Prostituta","Cliente","Bartender"]
         },
         {
-            "name": "Ponto de Ônibus",
-            "roles": ["Funcionário da SPTRANS","Passageiro","Perdeu o ônibus","Paciente","Mendigo","Pomba"]
-        },
-        {
-            "name": "Estádio de Futebol",
-            "roles": ["Torcedor","Torcida organizada","Vendedor","Jogador","Juíz","Gândula"]
-        },
-        {
             "name": "Casamento",
             "roles": ["Noiva","Noivo","Convidado","Madrinha","Padrinho","Orador","Organizador de eventos"]
         },
@@ -191,6 +183,15 @@
         {
             "name": "Hipódromo",
             "roles": ["Cavalo","Apostador","Atleta","Cuidador","Narrador","Segurança","Pipoqueiro"]
+        },
+        {
+            "name": "Ponto de Ônibus",
+            "roles": ["Funcionário da SPTRANS","Passageiro","Perdeu o ônibus","Paciente","Mendigo","Pomba"]
+        },
+        {
+            "name": "Estádio de Futebol",
+            "roles": ["Torcedor","Torcida organizada","Vendedor","Jogador","Juíz","Gândula"]
         }
+        
     ]
 }

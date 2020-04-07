@@ -1,6 +1,6 @@
 const utils = require('./utils.js')
 
-function processVote(msgOwnerIndex, playerVotedIndex) {
+function processVote(msgOwnerIndex, playerVotedIndex,msg) {
     if (playerVotedIndex != -1) {
         if (game.players[playerVotedIndex].votes) {
             game.players[playerVotedIndex].votes += 1;
@@ -60,10 +60,12 @@ function finishVoteSession(msg) {
 
 function announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex) {
     msg.channel.send(`Jogador mais votado foi: <@${playerVoted.id}>`)
-    game.players.splice(playerVotedIndex, 1)
+
     if (playerVoted.roles == "Spy") {
         msg.channel.send('O SPY foi descoberto, escolha o lugar com ```spy location <lugar>```')
+        game.status = "Final"
     } else {
+        game.players.splice(playerVotedIndex, 1)
         msg.channel.send("O Spy continua no jogo")
         checkSpyIsTheLastOne(msg)
     }
@@ -96,8 +98,15 @@ module.exports = {
             msg.reply("Você só pode votar uma vez!")
             return;
         }
-        var playerVotedIndex = utils.searchPlayerIndex(msg.mentions.users.first().id);
-        processVote(msgOwnerIndex, playerVotedIndex)
+        var mention = msg.mentions.users.first()
+        
+        if(mention == null){
+           
+            msg.reply("Vota em alguém")
+            return
+        }
+        var playerVotedIndex = utils.searchPlayerIndex(mention.id);
+        processVote(msgOwnerIndex, playerVotedIndex,msg)
         if (game.votes == game.players.length) {
             finishVoteSession(msg)
         }

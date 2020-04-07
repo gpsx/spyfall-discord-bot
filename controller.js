@@ -6,14 +6,18 @@ const voting = require("./voting")
 const help = require("./help")
 const locationVote = require("./locationVote.js")
 const Discord = require('discord.js');
+const declaration = require('./declaration')
 
 global.game = {
     active: false,
     players: [],
+    declaration: [],
     location: "",
     creator: "",
+    status: "",//Prepare, Declaration, Question, Voting, Final
     votes: 0,
-    tied: []
+    tied: [],
+   
 }
 
 module.exports = {
@@ -40,6 +44,8 @@ switchMessage = (msg, bot) => {
             return locationsInfo.showLocations(msg, bot)
         case 'location':
             return locationVote.spyVote(msg, bot)
+        case 'declaration' :
+            return declaration.declaration(msg,bot)
         case 'vote':
             if(game.tied.length > 1){
                 return voting.votingTied(msg, bot)    

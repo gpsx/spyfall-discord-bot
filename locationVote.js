@@ -2,7 +2,7 @@ const utils = require('./utils')
 
 module.exports = {
     spyVote: (msg, bot) => {
-        if(!game.active) {
+        if(!game.active ) {
             var embed = utils.embed({
                 msg, title: `Não há nenhum jogo criado!`, thumb: 'https://images.emojiterra.com/twitter/v12/512px/2753.png'
             }, bot)
@@ -11,10 +11,23 @@ module.exports = {
             return;
         }
 
+        if(game.status != "Final"){
+            var embed = utils.embed({
+                msg, title: `O jogo está longe de acabar, não é hora da votação, ainda!`, thumb: 'https://images.emojiterra.com/twitter/v12/512px/2753.png'
+            }, bot)
+            msg.channel.send(embed)
+
+            return;
+        }
+
+
         index = utils.searchPlayerIndex(msg.author.id)
-        
         if(game.players[index].roles == "Spy") {
-            vote = msg.content.split(" ")[2]
+            // vote = msg.content.split(" ").splice(0,2)
+            // localguess=vote.join(" ")
+            vote = msg.content.substring(13)
+            
+            console.log(vote,game.location)
             if (vote == game.location) {
                 var embed = utils.embed({msg, title: 'O spy acertou a localização!',
                 thumb:''}, bot);
