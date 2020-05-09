@@ -1,6 +1,6 @@
 const utils = require('./utils.js')
 
-function processVote(msgOwnerIndex, playerVotedIndex,msg) {
+function processVote(msgOwnerIndex, playerVotedIndex, msg) {
     if (playerVotedIndex != -1) {
         if (game.players[playerVotedIndex].votes) {
             game.players[playerVotedIndex].votes += 1;
@@ -14,7 +14,7 @@ function processVote(msgOwnerIndex, playerVotedIndex,msg) {
     }
 }
 
-function isTied(msg, mostVotedPlayer, mostVotedPlayerIndex) {
+function isTied(msg, mostVotedPlayer, mostVotedPlayerIndex, bot) {
     if (mostVotedPlayerIndex.length > 1) {
         game.tied = mostVotedPlayer
         msg.channel.send("Voto empatado entre: ")
@@ -24,11 +24,11 @@ function isTied(msg, mostVotedPlayer, mostVotedPlayerIndex) {
         msg.channel.send("Rodada de votos novamente. Somente pode votar nestes players")
         utils.resetVotes();
     } else {
-        announceWhoIsTheVoted(msg, mostVotedPlayer[0], mostVotedPlayerIndex[0])
+        announceWhoIsTheVoted(msg, mostVotedPlayer[0], mostVotedPlayerIndex[0], bot)
     }
 }
 
-function searchMostVotedPlayers(msg) {
+function searchMostVotedPlayers(msg, bot) {
     var mostVotedPlayer = [];
     var mostVotedPlayerIndex = [];
     game.players.forEach((player, index) => {
@@ -46,35 +46,43 @@ function searchMostVotedPlayers(msg) {
             mostVotedPlayerIndex.push(index);
         }
     })
-    return isTied(msg, mostVotedPlayer, mostVotedPlayerIndex)
+    return isTied(msg, mostVotedPlayer, mostVotedPlayerIndex, bot)
 }
 
-function finishVoteSession(msg) {
-    if(game.tied.length > 1){
+function finishVoteSession(msg, bot) {
+    if (game.tied.length > 1) {
         utils.resetGameTied
     }
     msg.channel.send("Acabou a rodada dos votos")
-    searchMostVotedPlayers(msg)
+    searchMostVotedPlayers(msg, bot)
 
 }
 
-function announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex) {
-    msg.channel.send(`Jogador mais votado foi: <@${playerVoted.id}>`)
+function announceWhoIsTheVoted(msg, playerVoted, playerVotedIndex, bot) {
+
+    var embed = utils.embed({
+        msg, title: 'Votação Encerrada', thumb: 'https://images.emojiterra.com/twitter/v12/512px/2753.png'
+    }, bot)
+    embed.setDescription(`Jogador mais votado foi: <@${playerVoted.id}>`);
 
     if (playerVoted.roles == "Spy") {
-        msg.channel.send('O SPY foi descoberto, escolha o lugar com ```spy location <lugar>```')
+        embed.addField('O SPY foi descoberto', 'Escolha o lugar com **spy location <lugar>**')
+        embed.setColor("#00FF00");
         game.status = "Final"
-    } else {
+    }
+    else {
         game.players.splice(playerVotedIndex, 1)
-        msg.channel.send("O Spy continua no jogo")
+        embed.addField('Voto no cara errado', "O Spy continua no jogo")
+        embed.setColor("#FF0000");
         checkSpyIsTheLastOne(msg)
     }
+    msg.channel.send(embed);
     utils.resetVotes();
     utils.resetGameTied();
 }
 
-function checkSpyIsTheLastOne(msg){
-    if(game.players.length == 1){
+function checkSpyIsTheLastOne(msg) {
+    if (game.players.length == 1) {
         msg.channel.send(`<@${game.players[0].id}> Ganhou o Jogo como SPY`)
         utils.deactivateGame()
     }
@@ -99,16 +107,16 @@ module.exports = {
             return;
         }
         var mention = msg.mentions.users.first()
-        
-        if(mention == null){
-           
+
+        if (mention == null) {
+
             msg.reply("Vota em alguém")
             return
         }
         var playerVotedIndex = utils.searchPlayerIndex(mention.id);
-        processVote(msgOwnerIndex, playerVotedIndex,msg)
+        processVote(msgOwnerIndex, playerVotedIndex, msg)
         if (game.votes == game.players.length) {
-            finishVoteSession(msg)
+            finishVoteSession(msg, bot)
         }
         //msg.channel.send("Vota certo MEU!")
 
@@ -121,7 +129,7 @@ module.exports = {
                 return module.exports.voting(msg, bot)
             }
         })
-        if(!playerFound)
+        if (!playerFound)
             msg.reply("Somente os players que estão empatados")
     }
 }

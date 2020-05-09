@@ -12,7 +12,7 @@ module.exports = {
                     game.location = location.name //set the game location
                     spy = game.players[utils.randomize(game.players.length)] //spy receive object player randomized
                     spy.roles = "Spy" //set spy player role as spy
-                    console.log(game.players)
+
 
                     //set the roles to others players
                     for (let i = 0; i < game.players.length; i++) {

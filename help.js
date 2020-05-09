@@ -21,9 +21,7 @@ module.exports = {
         }
         else
         {
-            console.log(msgSplit)
             text = msgSplit[2]
-            console.log(text)
             switch (text) {
                 case '1':
                     return page1(embed,msg)

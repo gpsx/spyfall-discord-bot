@@ -27,7 +27,6 @@ module.exports = {
             // localguess=vote.join(" ")
             vote = msg.content.substring(13)
             
-            console.log(vote,game.location)
             if (vote == game.location) {
                 var embed = utils.embed({msg, title: 'O spy acertou a localização!',
                 thumb:''}, bot);
